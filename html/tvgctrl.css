@@ -1,0 +1,135 @@
+
+.tvgbg {
+    display:block;
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background-color: #000;
+    /*height:220px; js设置 */
+    text-align: center;
+    overflow: hidden;
+    z-index: 100001;
+}
+
+#casttv {
+    display:block;
+    position:absolute;
+    width:60%;
+    height:60%;
+    left:50%;
+    top: 30px;
+    transform:translateX(-50%);
+    background-image: url('./img/tv.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+/* text on tv image */
+#casttv div {
+    position:relative;
+    color:#999;
+    font-size:18px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(50% - 40px);
+}
+
+#casttv #devicename {
+    top: calc(50% - 45px);
+    font-size: 24px;
+	padding-bottom: 34px;
+    color: white;
+}
+.tvgcenter {
+    position:relative;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+.tvgcenterY {
+    top:50%;
+    transform: translateY(-50%);
+}
+
+#playerr>.tvgcenterX {
+    left:50%;
+    transform: translateX(-50%);
+}
+
+.tvgbg .tvgRefresh {
+    vertical-align:middle;
+    margin-left:2px;
+    height:20px;
+    width:20px;
+}
+
+.tvggreentxt {
+    color: #38c85b;
+}
+
+.tvglighttxt {
+    color: #999;
+    font-size: 28px;
+}
+
+#switch-btn {
+    display:block;
+    position:absolute;
+    background-color: #26282b;
+    width:150px;
+    height:34px;
+    border-radius: 17px;
+    left:50%;
+    transform:translateX(-50%);
+    bottom: 15px;
+}
+
+#switch-btn>p {
+	position:center;
+}
+
+#castbtn:active {
+    background-color: darkgray;
+}
+
+#castbtn>p {
+    display:block;
+    position:relative;
+    color: white;
+    margin:0 auto;
+    text-align: center;
+    font-size: 25px;
+}
+
+/* cast view */
+
+.casticonbg {
+    background: black url(./img/casticon.png) no-repeat center;
+    background-size:100px;
+}
+
+#tvgjumpToApp {
+    position:absolute;
+    background-color:#26282B;
+    color:white;
+    font-size:11px;
+    top:20px;
+    right:-10px;
+    padding:0px 18px;
+    height:22px;
+    line-height:22px;
+    border-radius:11px;
+}
+
+#tvgjumpToApp img {
+    margin-left:5px;
+    margin-right:5px;
+    height:14px;
+    width:14px;
+}
+
