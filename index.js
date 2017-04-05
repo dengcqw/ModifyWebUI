@@ -5,9 +5,6 @@ var tvgHTMLURLError = require('./html/tvgURLError.html');
 
 var refreshImgData = require('./html/img/refresh.png');
 var casticonData = require('./html/img/casticon.png');
-var tvImgData = require('./html/img/tv.png');
-//var tvImgData = require('./html/img/tv-small@2x.png');
-//var tvImgData = require('./html/img/tv-small@3x.png');
 
 // outapp icon
 var outappIcon = {
@@ -264,7 +261,7 @@ var checkOrigButtontTimer;
 
 function main() {
 	console.log("WebEvent: in main()");
-  if (window.tvgPlayer && window.tvgPlayer.castView.ownerDocument && document.getElementsByClassName("tvgbg") != null && document.getElementsByClassName("tvgbg").length > 0) {
+  if (window.tvgPlayer && document.querySelector(".tvgbg")) {
     QYQD.log('tvgPlayer exist');
 	console.log("WebEvent: tvgPlayer exist.");
     clearInterval(checkOrigButtontTimer);
