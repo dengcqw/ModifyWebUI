@@ -227,7 +227,7 @@ function getAnchorLayout() {
     }
     return playerContainer[0];
   } else if(href.search('.mgtv.com') >= 0) {
-    console.log("javascript: in mgtv.");
+    console.log("WebEvent: in mgtv.");
     return document.getElementsByClassName('video-area')[0];
   } else if(href.search('.sohu.') >= 0) {
     return document.getElementsByClassName('x-cover-playbtn-wrap')[0];
@@ -239,13 +239,13 @@ function getAnchorLayout() {
     document.getElementsByClassName('playbox')[0].style.position='relative';
     return document.getElementsByClassName('playbox')[0];
   } else if(href.search('.youku.') >= 0) {
-    console.log("javascript: in youku.");
+    console.log("WebEvent: in youku.");
     if(document.getElementsByClassName('x-video-button')[0] == null) {
-      console.log("javascript: no x-video-button");
+      console.log("WebEvent: no x-video-button");
       document.getElementsByClassName('video')[0].style.position = 'relative';
       return document.getElementsByClassName('video')[0];
     } else {
-      console.log("javascript: has x-video-button");
+      console.log("WebEvent: has x-video-button");
       return document.getElementsByClassName('x-video-button')[0];
     }
   } else if(href.search('.baidu.') >= 0) {
@@ -263,18 +263,20 @@ function getAnchorLayout() {
 var checkOrigButtontTimer;
 
 function main() {
-  if (window.tvgPlayer && window.tvgPlayer.castView.ownerDocument) {
+	console.log("WebEvent: in main()");
+  if (window.tvgPlayer && window.tvgPlayer.castView.ownerDocument && document.getElementsByClassName("tvgbg") != null && document.getElementsByClassName("tvgbg").length > 0) {
     QYQD.log('tvgPlayer exist');
+	console.log("WebEvent: tvgPlayer exist.");
     clearInterval(checkOrigButtontTimer);
     return;
   }
   var anchorLayout = getAnchorLayout();
   if (!anchorLayout || anchorLayout.length <= 0) {
-    console.log("javascript: in start");
+    console.log("WebEvent: anchor do not exist.");
     return;
   } else {
     clearInterval(checkOrigButtontTimer);
-    console.log("javascript: anchor exist.");
+    console.log("WebEvent: anchor exist.");
 
     /* init black cover */
     anchorLayout.style.background = 'black';
@@ -284,6 +286,7 @@ function main() {
   }
 }
 
+console.log("WebEvent: inject success.");
 main();
 
 /* main */
