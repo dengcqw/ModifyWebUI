@@ -1,5 +1,5 @@
 
-.tvgbg {
+div.tvgbg {
     display:block;
     position:absolute;
     width:100%;
@@ -15,9 +15,9 @@
 
 #casttv {
     display:block;
-    position:absolute;
-    width:60%;
-    height:60%;
+    position:relative;
+    width: 200px;
+    height: 126px;
     left:50%;
     top: 30px;
     transform:translateX(-50%);
@@ -26,24 +26,23 @@
     background-size: contain;
     background-repeat: no-repeat;
     text-align: center;
-}
-
-/* text on tv image */
-#casttv div {
-    position:relative;
+    font-size: 13px;
+    text-align:center;
     color:#999;
-    font-size:18px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: calc(50% - 40px);
 }
 
 #casttv #devicename {
-    top: calc(50% - 45px);
-    font-size: 24px;
-	padding-bottom: 34px;
+    position:relative;
+    top: 34px;
+    font-size: 14px;
     color: white;
 }
+
+#casting, #playing, #playerr, #casterr {
+  position:relative;
+  top: 50px;
+}
+
 .tvgcenter {
     position:relative;
     top:50%;
@@ -62,35 +61,35 @@
 }
 
 .tvgbg .tvgRefresh {
+    display:inline-block;
     vertical-align:middle;
     margin-left:2px;
-    height:20px;
-    width:20px;
+    height:13px;
+    width:13px;
 }
 
-.tvggreentxt {
-    color: #38c85b;
+div.tvgbg .tvggreentxt {
+    color: #4dc769;
+    font-size: 13px;
 }
 
-.tvglighttxt {
+div.tvgbg .tvglighttxt {
     color: #999;
-    font-size: 28px;
+    font-size: 14px;
 }
 
-#switch-btn {
+div.tvgbg #switch-btn {
     display:block;
-    position:absolute;
+    position:relative;
     background-color: #26282b;
-    width:150px;
-    height:34px;
-    border-radius: 17px;
+    width:100px;
+    height:30px;
+    border-radius: 15px;
     left:50%;
     transform:translateX(-50%);
-    bottom: 15px;
-}
-
-#switch-btn>p {
-	position:center;
+    top: 40px;
+    line-height: 30px;
+    color: #FFF;
 }
 
 #tvgbg #castbtn>p {

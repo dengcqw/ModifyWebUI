@@ -5,8 +5,8 @@ var tvgHTMLURLError = require('./html/tvgURLError.html');
 
 var refreshImgData = require('./html/img/refresh.png');
 var casticonData = require('./html/img/casticon.png');
-//var tvImgData = require('./html/img/tv.png');
-var tvImgData = require('./html/img/tv-small@2x.png');
+var tvImgData = require('./html/img/tv.png');
+//var tvImgData = require('./html/img/tv-small@2x.png');
 //var tvImgData = require('./html/img/tv-small@3x.png');
 
 // outapp icon
@@ -79,7 +79,7 @@ function startCastingAnimation(statusView) {
     if (idx >= 4) {
       idx = 0;
     }
-  }, 100);
+  }, 500);
 }
 
 function createElement(doc, htmlStr) {
