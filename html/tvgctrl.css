@@ -93,11 +93,7 @@
 	position:center;
 }
 
-#castbtn:active {
-    background-color: darkgray;
-}
-
-#castbtn>p {
+#tvgbg #castbtn>p {
     display:block;
     position:relative;
     color: white;
@@ -108,28 +104,32 @@
 
 /* cast view */
 
-.casticonbg {
+div#casticonbg {
     background: black url(./img/casticon.png) no-repeat center;
-    background-size:100px;
+    background-size:73px;
 }
 
-#tvgjumpToApp {
+div.tvgbg>#tvgjumpToApp {
     position:absolute;
     background-color:#26282B;
     color:white;
+    width:133px;
+    right:0;
     font-size:11px;
     top:20px;
-    right:-10px;
-    padding:0px 18px;
-    height:22px;
+    border-top-left-radius:11px;
+    border-bottom-left-radius:11px;
+    text-align:right;
+    padding-right:10px;
     line-height:22px;
-    border-radius:11px;
+    height:22px;
 }
 
 #tvgjumpToApp img {
-    margin-left:5px;
-    margin-right:5px;
-    height:14px;
-    width:14px;
+  display:inline-block;
+  height:14px;
+  width:14px;
+  vertical-align:middle;
+  margin:0 5px;
 }
 
