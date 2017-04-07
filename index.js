@@ -206,6 +206,54 @@ function TVGPlayerCover(coverRef) {
   //throw new Error('QYQD not dfined');
 //}
 
+function getValidElement(/*element query function list*/) {
+  var args = Array.prototype.slice.call(arguments); // turn to array obj
+  var ret;
+  for (var index in arguments) {
+    ret = arguments[index]();
+    if (ret && ret instanceof Element) {
+      return ret;
+    }
+  }
+  return undefined;
+}
+
+function cloneAndReplaceElement(element/* func or element */) {
+  var ele;
+  var cloneEle;
+  if (element && element instanceof Function) {
+    ele = element();
+  } else {
+    ele = element;
+  }
+  if (ele && ele instanceof Element) {
+     cloneEle = ele.cloneNode(true);
+     ele.parentNode.replaceChild(cloneEle, ele);
+  }
+  return cloneEle;
+}
+
+function waitElement(interval, queryFn, callback) {
+  if (queryFn == undefined || callback == undefined) return;
+  if (!queryFn instanceof Function) return;
+  var timeoutFn = function() {
+    var ele = queryFn();
+    if (ele && ele instanceof Element) {
+      callback(ele);
+    } else {
+      setTimeout(timeoutFn, interval);
+    };
+  };
+  timeoutFn();
+};
+
+function pipeline(/* funs */) { /* 柯里化的管道 */
+  var args = Array.prototype.slice.call(arguments); // turn to array obj
+  return function(seed) {
+    return args.reduce(function(l, r) { return r(l); }, seed);
+  }
+}
+
 function getAnchorLayout() {
   var href = window.location.host;
   if(href.search(".iqiyi.com") >= 0) {
@@ -214,15 +262,11 @@ function getAnchorLayout() {
     return document.getElementsByClassName('block-player')[0];
   } else if(href.search(".bilibili.com") >= 0) {
     console.log("javascript: in bilibili.");
-    var playerContainer = document.getElementsByClassName('player-container');
-    if (playerContainer == null || playerContainer.length == 0) {
-      playerContainer = document.getElementsByClassName('live-over');
-      if(playerContainer == null || playerContainer.length == 0) playerContainer = document.getElementsByClassName('player-ctnr');
-      if (playerContainer == null || playerContainer.length == 0) {
-        return;
-      }
-    }
-    return playerContainer[0];
+    return getValidElement(
+      function() { return document.querySelector('.player-container'); },
+      function() { return document.querySelector('.live-over'); },
+      function() { return document.querySelector('.player-ctnr'); }
+    );
   } else if(href.search('.mgtv.com') >= 0) {
     console.log("WebEvent: in mgtv.");
     return document.getElementsByClassName('video-area')[0];
@@ -231,29 +275,32 @@ function getAnchorLayout() {
   } else if(href.search('.le.') >= 0) {
     return document.getElementsByClassName('hv_box_mb')[0];
   } else if(href.search('.v.qq.') >= 0) {
-    return document.getElementsByClassName('site_player_inner')[0];
+    return getValidElement(
+      function() { return document.querySelector('.site_player_inner'); },
+      function() { return document.getElementById('2016_player'); }
+    );
   } else if(href.search('.pptv.') >= 0) {
     document.getElementsByClassName('playbox')[0].style.position='relative';
     return document.getElementsByClassName('playbox')[0];
   } else if(href.search('.youku.') >= 0) {
     console.log("WebEvent: in youku.");
-    if(document.getElementsByClassName('x-video-button')[0] == null) {
-      console.log("WebEvent: no x-video-button");
-      document.getElementsByClassName('video')[0].style.position = 'relative';
-      return document.getElementsByClassName('video')[0];
-    } else {
-      console.log("WebEvent: has x-video-button");
-      return document.getElementsByClassName('x-video-button')[0];
-    }
+    return getValidElement(
+      function() {
+        var ele = document.querySelector('.video');
+        if (ele) ele.style.position = 'relative';
+        return ele;
+      },
+      function() {
+        return document.getElementsByClassName('x-video-button')[0];
+      }
+    );
   } else if(href.search('.baidu.') >= 0) {
-    var ele = document.querySelector('.video-thumb-outer>.video-thumb-inner-hack');
-    if (ele) {
-      return ele;
-    } else if(document.getElementById('videoPlay') != null) {
-      return document.getElementById('videoPlay').parentNode;
-    }
+    return getValidElement(
+      function() { return document.querySelector('.video-thumb-outer>.video-thumb-inner-hack'); },
+      function() { return document.getElementById('videoPlay').parentNode; }
+    );
   } else {
-	  return document.getElementsByClassName('ui-li-divider')[0];
+    return document.getElementsByClassName('ui-li-divider')[0];
   }
 }
 
@@ -289,3 +336,23 @@ main();
 /* main */
 checkOrigButtontTimer = setInterval(main.bind(this), 200);
 
+
+
+/* execption process */
+
+/* bilibili: replace open clicent button to disable refresh page */
+waitElement(1000,
+  function() {
+    return document.querySelector('a.launch-app');
+  },
+  function(element) { /*  修改元素 */
+    if (element instanceof Element && element.tagName.toLowerCase() == 'a') {
+      console.log('bilibili: change launch app element');
+      var spanEle = document.createElement('span');
+      spanEle.className = element.className;
+      spanEle.innerHTML = element.innerHTML;
+      element.parentNode.replaceChild(spanEle, element);
+    }
+    return spanEle;
+  }
+);

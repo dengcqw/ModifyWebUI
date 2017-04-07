@@ -13,11 +13,12 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
             loader: 'css-loader',
             options: {
+              sourceMap: false,
               minimize: true
             }
           },
@@ -49,11 +50,10 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
+      sourceMap: false
     })
   ],
+  devtool:'cheap-module-source-map',
   target: 'web', /* default */
   node: {
     console: false,
