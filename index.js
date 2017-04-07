@@ -46,9 +46,9 @@ function initCastStatusView(statusView) {
   var ele = statusView.querySelector('#switch-btn');
   ele.addEventListener('click', clickCallBack('switchDevice'));
   ele = statusView.querySelector('#playerr');
-  ele.addEventListener('click', clickCallBack('refreshWeb'));
+  ele.addEventListener('click', clickCallBack('playErrClick'));
   ele = statusView.querySelector('#casterr');
-  ele.addEventListener('click', clickCallBack('refreshWeb'));
+  ele.addEventListener('click', clickCallBack('castErrClick'));
 }
 
 function initURLErrorView(errView) {
