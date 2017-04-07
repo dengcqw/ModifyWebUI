@@ -36,11 +36,11 @@ div.tvgbg {
     top: 25%;
     font-size: 14px;
     color: white;
-    margin-bottom:32px;
 }
 
 #casting, #playing, #playerr, #casterr {
     position:relative;
+	top: 50%
 }
 
 .tvgcenter {
