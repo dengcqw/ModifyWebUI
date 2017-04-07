@@ -6,6 +6,9 @@ var tvgHTMLURLError = require('./html/tvgURLError.html');
 var refreshImgData = require('./html/img/refresh.png');
 var casticonData = require('./html/img/casticon.png');
 
+var siteMgr = require('./site.manager.js');
+var siteId = siteMgr.getIdentifier(location.host);
+
 // outapp icon
 var outappIcon = {
   letv: require('./html/img/src_letv.png'),
@@ -107,6 +110,10 @@ function TVGPlayerCover(coverRef) {
   /* insert base64 img */
   updateRefreshIcon(documentRef, refreshImgData);
   startCastingAnimation(statusView);
+  var zIndex = siteMgr.getzIndexValue(siteId);
+  castView.style.zIndex = zIndex;
+  errView.style.zIndex = zIndex;
+  statusView.style.zIndex = zIndex;
 
   /* add click event */
   initCastView(castView);
@@ -206,33 +213,6 @@ function TVGPlayerCover(coverRef) {
   //throw new Error('QYQD not dfined');
 //}
 
-function getValidElement(/*element query function list*/) {
-  var args = Array.prototype.slice.call(arguments); // turn to array obj
-  var ret;
-  for (var index in arguments) {
-    ret = arguments[index]();
-    if (ret && ret instanceof Element) {
-      return ret;
-    }
-  }
-  return undefined;
-}
-
-function cloneAndReplaceElement(element/* func or element */) {
-  var ele;
-  var cloneEle;
-  if (element && element instanceof Function) {
-    ele = element();
-  } else {
-    ele = element;
-  }
-  if (ele && ele instanceof Element) {
-     cloneEle = ele.cloneNode(true);
-     ele.parentNode.replaceChild(cloneEle, ele);
-  }
-  return cloneEle;
-}
-
 function waitElement(interval, queryFn, callback) {
   if (queryFn == undefined || callback == undefined) return;
   if (!queryFn instanceof Function) return;
@@ -254,67 +234,67 @@ function pipeline(/* funs */) { /* 柯里化的管道 */
   }
 }
 
-function getAnchorLayout() {
-  var href = window.location.host;
-  if(href.search(".iqiyi.com") >= 0) {
-    return document.getElementsByClassName('m-video-player')[0];
-  } else if(href.search(".acfun.") >= 0) {
-    return document.getElementsByClassName('block-player')[0];
-  } else if(href.search(".bilibili.com") >= 0) {
-    console.log("javascript: in bilibili.");
-    return getValidElement(
-      function() { return document.querySelector('.player-container'); },
-      function() { return document.querySelector('.live-over'); },
-      function() { return document.querySelector('.player-ctnr'); }
-    );
-  } else if(href.search('.mgtv.com') >= 0) {
-    console.log("WebEvent: in mgtv.");
-    return document.getElementsByClassName('video-area')[0];
-  } else if(href.search('.sohu.') >= 0) {
-    return document.getElementsByClassName('x-cover-playbtn-wrap')[0];
-  } else if(href.search('.le.') >= 0) {
-    return document.getElementsByClassName('hv_box_mb')[0];
-  } else if(href.search('.v.qq.') >= 0) {
-    return getValidElement(
-      function() { return document.querySelector('.site_player_inner'); },
-      function() { return document.getElementById('2016_player'); }
-    );
-  } else if(href.search('.pptv.') >= 0) {
-    document.getElementsByClassName('playbox')[0].style.position='relative';
-    return document.getElementsByClassName('playbox')[0];
-  } else if(href.search('.youku.') >= 0) {
-    console.log("WebEvent: in youku.");
-    return getValidElement(
-      function() {
-        var ele = document.querySelector('.video');
-        if (ele) ele.style.position = 'relative';
-        return ele;
-      },
-      function() {
-        return document.getElementsByClassName('x-video-button')[0];
-      }
-    );
-  } else if(href.search('.baidu.') >= 0) {
-    return getValidElement(
-      function() { return document.querySelector('.video-thumb-outer>.video-thumb-inner-hack'); },
-      function() { return document.getElementById('videoPlay').parentNode; }
-    );
-  } else {
-    return document.getElementsByClassName('ui-li-divider')[0];
-  }
-}
+//function getAnchorLayout() {
+  //var href = window.location.host;
+  //if(href.search(".iqiyi.com") >= 0) {
+    //return document.getElementsByClassName('m-video-player')[0];
+  //} else if(href.search(".acfun.") >= 0) {
+    //return document.getElementsByClassName('block-player')[0];
+  //} else if(href.search(".bilibili.com") >= 0) {
+    //console.log("javascript: in bilibili.");
+    //return getValidElement(
+      //function() { return document.querySelector('.player-container'); },
+      //function() { return document.querySelector('.live-over'); },
+      //function() { return document.querySelector('.player-ctnr'); }
+    //);
+  //} else if(href.search('.mgtv.com') >= 0) {
+    //console.log("WebEvent: in mgtv.");
+    //return document.getElementsByClassName('video-area')[0];
+  //} else if(href.search('.sohu.') >= 0) {
+    //return document.getElementsByClassName('x-cover-playbtn-wrap')[0];
+  //} else if(href.search('.le.') >= 0) {
+    //return document.getElementsByClassName('hv_box_mb')[0];
+  //} else if(href.search('.v.qq.') >= 0) {
+    //return getValidElement(
+      //function() { return document.querySelector('.site_player_inner'); },
+      //function() { return document.getElementById('2016_player'); }
+    //);
+  //} else if(href.search('.pptv.') >= 0) {
+    //document.getElementsByClassName('playbox')[0].style.position='relative';
+    //return document.getElementsByClassName('playbox')[0];
+  //} else if(href.search('.youku.') >= 0) {
+    //console.log("WebEvent: in youku.");
+    //return getValidElement(
+      //function() {
+        //var ele = document.querySelector('.video');
+        //if (ele) ele.style.position = 'relative';
+        //return ele;
+      //},
+      //function() {
+        //return document.getElementsByClassName('x-video-button')[0];
+      //}
+    //);
+  //} else if(href.search('.baidu.') >= 0) {
+    //return getValidElement(
+      //function() { return document.querySelector('.video-thumb-outer>.video-thumb-inner-hack'); },
+      //function() { return document.getElementById('videoPlay').parentNode; }
+    //);
+  //} else {
+    //return document.getElementsByClassName('ui-li-divider')[0];
+  //}
+//}
 
 var checkOrigButtontTimer;
 
 function main() {
-	console.log("WebEvent: in main()");
+  console.log("WebEvent: in main()");
   if (window.tvgPlayer && document.querySelector(".tvgbg")) {
     QYQD.log('tvgPlayer exist');
-	console.log("WebEvent: tvgPlayer exist.");
+    console.log("WebEvent: tvgPlayer exist.");
     clearInterval(checkOrigButtontTimer);
     return;
   }
-  var anchorLayout = getAnchorLayout();
+  var anchorLayout = siteMgr.queryMap[siteId]();
   if (!anchorLayout || anchorLayout.length <= 0) {
     console.log("WebEvent: anchor do not exist.");
     return;
@@ -327,6 +307,10 @@ function main() {
 
     window.tvgPlayer = new TVGPlayerCover(anchorLayout);
     QYQD.webEvent(JSON.stringify({event:"tvgPlayerInit"}));
+
+    /* some page refresh did not reload document,
+      so re-inject by element checking */
+    checkOrigButtontTimer = setInterval(main, 2000);
   }
 }
 
@@ -335,7 +319,6 @@ main();
 
 /* main */
 checkOrigButtontTimer = setInterval(main.bind(this), 200);
-
 
 
 /* execption process */
