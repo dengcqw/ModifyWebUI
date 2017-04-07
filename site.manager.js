@@ -113,6 +113,7 @@ var queryMap = (function () {
 function getzIndexValue(siteId) {
   var zIndexMap = {};
   zIndexMap[siteIds.acfun] = 99;
+  zIndexMap[siteIds.iqiyi] = 999;
 
   return zIndexMap[siteId] || 100001;
 }
