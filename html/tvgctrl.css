@@ -17,9 +17,9 @@ div.tvgbg {
     display:block;
     position:relative;
     height: 50%;
-    left:50%;
+    left:0%;
     top: 25px;
-    transform:translateX(-50%);
+    transform:translateX(0%);
     /* tv.png  tv-small@2x.png tv-small@3x.png*/
     background-image: url('./img/tv-small@2x.png');
     background-position: center;
@@ -40,14 +40,14 @@ div.tvgbg {
 
 #casting, #playing, #playerr, #casterr {
     position:relative;
-	top: 50%
+	top: 40%
 }
 
 .tvgcenter {
     position:relative;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%);
+    top:45%;
+    left:0%;
+    transform: translate(0%, 0%);
 }
 
 .tvgcenterY {
@@ -86,8 +86,10 @@ div.tvgbg #switch-btn {
     height:30px;
     border-radius: 15px;
     left:50%;
-    transform:translateX(-50%);
+    transform:translateX(0%);
     top: 40px;
+	font-size:14px;
+	margin-left:-50px;
     line-height: 30px;
     color: #FFF;
 }

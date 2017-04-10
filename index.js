@@ -287,7 +287,7 @@ function pipeline(/* funs */) { /* 柯里化的管道 */
 var checkOrigButtontTimer;
 
 function main() {
-  console.log("WebEvent: in main()");
+  console.log("WebEvent: in main() test =========================");
   if (window.tvgPlayer && document.querySelector(".tvgbg")) {
     QYQD.log('tvgPlayer exist');
     console.log("WebEvent: tvgPlayer exist.");
@@ -314,7 +314,7 @@ function main() {
   }
 }
 
-console.log("WebEvent: inject success.");
+console.log("WebEvent: inject success=========================================.");
 main();
 
 /* main */
