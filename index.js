@@ -199,20 +199,6 @@ function TVGPlayerCover(coverRef) {
   }
 }
 
-// webpack 会打包css
-//var tvgCss = require('./output/tvgcss.js');
-//function insertStyleSheets(cssString) {
-//var css = documentRef.createElement("style");
-//css.type = "text/css";
-//css.innerHTML = cssString;
-//document.body.appendChild(css);
-//}
-//insertStyleSheets(tvgCss);
-
-//if (!QYQD) {
-  //throw new Error('QYQD not dfined');
-//}
-
 function waitElement(interval, queryFn, callback) {
   if (queryFn == undefined || callback == undefined) return;
   if (!queryFn instanceof Function) return;
@@ -234,64 +220,12 @@ function pipeline(/* funs */) { /* 柯里化的管道 */
   }
 }
 
-//function getAnchorLayout() {
-  //var href = window.location.host;
-  //if(href.search(".iqiyi.com") >= 0) {
-    //return document.getElementsByClassName('m-video-player')[0];
-  //} else if(href.search(".acfun.") >= 0) {
-    //return document.getElementsByClassName('block-player')[0];
-  //} else if(href.search(".bilibili.com") >= 0) {
-    //console.log("javascript: in bilibili.");
-    //return getValidElement(
-      //function() { return document.querySelector('.player-container'); },
-      //function() { return document.querySelector('.live-over'); },
-      //function() { return document.querySelector('.player-ctnr'); }
-    //);
-  //} else if(href.search('.mgtv.com') >= 0) {
-    //console.log("WebEvent: in mgtv.");
-    //return document.getElementsByClassName('video-area')[0];
-  //} else if(href.search('.sohu.') >= 0) {
-    //return document.getElementsByClassName('x-cover-playbtn-wrap')[0];
-  //} else if(href.search('.le.') >= 0) {
-    //return document.getElementsByClassName('hv_box_mb')[0];
-  //} else if(href.search('.v.qq.') >= 0) {
-    //return getValidElement(
-      //function() { return document.querySelector('.site_player_inner'); },
-      //function() { return document.getElementById('2016_player'); }
-    //);
-  //} else if(href.search('.pptv.') >= 0) {
-    //document.getElementsByClassName('playbox')[0].style.position='relative';
-    //return document.getElementsByClassName('playbox')[0];
-  //} else if(href.search('.youku.') >= 0) {
-    //console.log("WebEvent: in youku.");
-    //return getValidElement(
-      //function() {
-        //var ele = document.querySelector('.video');
-        //if (ele) ele.style.position = 'relative';
-        //return ele;
-      //},
-      //function() {
-        //return document.getElementsByClassName('x-video-button')[0];
-      //}
-    //);
-  //} else if(href.search('.baidu.') >= 0) {
-    //return getValidElement(
-      //function() { return document.querySelector('.video-thumb-outer>.video-thumb-inner-hack'); },
-      //function() { return document.getElementById('videoPlay').parentNode; }
-    //);
-  //} else {
-    //return document.getElementsByClassName('ui-li-divider')[0];
-  //}
-//}
-
 var checkOrigButtontTimer;
 
 function main() {
   console.log("WebEvent: in main() test =========================");
   if (window.tvgPlayer && document.querySelector(".tvgbg")) {
-    QYQD.log('tvgPlayer exist');
     console.log("WebEvent: tvgPlayer exist.");
-    clearInterval(checkOrigButtontTimer);
     return;
   }
   var anchorLayout = siteMgr.queryMap[siteId]();
@@ -300,6 +234,8 @@ function main() {
     return;
   } else {
     clearInterval(checkOrigButtontTimer);
+    checkOrigButtontTimer = undefined;
+
     console.log("WebEvent: anchor exist.");
 
     /* init black cover */
@@ -310,15 +246,18 @@ function main() {
 
     /* some page refresh did not reload document,
       so re-inject by element checking */
-    checkOrigButtontTimer = setInterval(main, 2000);
+    clearInterval(window.checkTVGPlayerTimer);
+    window.checkTVGPlayerTimer = setInterval(main, 1500);
   }
 }
 
 console.log("WebEvent: inject success=========================================.");
-main();
 
 /* main */
-checkOrigButtontTimer = setInterval(main.bind(this), 200);
+main();
+if (!window.tvgPlayer) {
+  checkOrigButtontTimer = setInterval(main.bind(this), 200);
+}
 
 
 /* execption process */
