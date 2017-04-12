@@ -226,6 +226,10 @@ function main() {
   console.log("WebEvent: in main() test =========================");
   if (window.tvgPlayer && document.querySelector(".tvgbg")) {
     console.log("WebEvent: tvgPlayer exist.");
+    if (checkOrigButtontTimer) {
+      clearInterval(checkOrigButtontTimer);
+      checkOrigButtontTimer = undefined;
+    }
     return;
   }
   var anchorLayout = siteMgr.queryMap[siteId]();

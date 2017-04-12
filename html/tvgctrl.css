@@ -7,7 +7,6 @@ div.tvgbg {
     top:0;
     left:0;
     background-color: #000;
-    /*height:220px; js设置 */
     text-align: center;
     overflow: hidden;
     z-index: 100001;
@@ -17,30 +16,27 @@ div.tvgbg {
     display:block;
     position:relative;
     height: 50%;
-    left:0%;
-    top: 25px;
-    transform:translateX(0%);
+    top: 15%;
     /* tv.png  tv-small@2x.png tv-small@3x.png*/
     background-image: url('./img/tv-small@2x.png');
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    text-align: center;
-    font-size: 13px;
     text-align:center;
     color:#999;
 }
 
 #casttv #devicename {
     position:relative;
-    top: 25%;
     font-size: 14px;
+    top: 20%;
     color: white;
 }
 
 #casting, #playing, #playerr, #casterr {
     position:relative;
-	top: 40%
+    top: 30%;
+    font-size: 13px;
 }
 
 .tvgcenter {
