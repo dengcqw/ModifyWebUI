@@ -4,7 +4,7 @@ module.exports = {
   entry: __dirname+'/js/entry.js',
   output: {
     path: __dirname+'/js',
-    filename: 'bundle.js',
+    filename: 'web_change.js',
     publicPath: 'http://localhost:8080/js/'
   },
   module: {

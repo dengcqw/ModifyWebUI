@@ -239,7 +239,7 @@ function main() {
     console.log("WebEvent: anchor exist.");
 
     /* init black cover */
-    anchorLayout.style.background = 'black';
+    anchorLayout.style.backgroundColor = '#000';
 
     window.tvgPlayer = new TVGPlayerCover(anchorLayout);
     QYQD.webEvent(JSON.stringify({event:"tvgPlayerInit"}));
