@@ -87,6 +87,10 @@ var queryMap = (function () {
   };
   queryMap[siteIds.youku] =    function() {
     return getValidElement(
+	  function() {
+        var ele = document.querySelector('.ykplayer');
+        if (ele) return ele;
+      },
       function() {
         var ele = document.querySelector('.video');
         if (ele) ele.style.position = 'relative';
