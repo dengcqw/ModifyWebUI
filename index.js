@@ -226,6 +226,10 @@ function main() {
   console.log("WebEvent: in main() test =========================");
   if (window.tvgPlayer && document.querySelector(".tvgbg")) {
     console.log("WebEvent: tvgPlayer exist.");
+    if (checkOrigButtontTimer) {
+      clearInterval(checkOrigButtontTimer);
+      checkOrigButtontTimer = undefined;
+    }
     return;
   }
   var anchorLayout = siteMgr.queryMap[siteId]();
@@ -239,7 +243,7 @@ function main() {
     console.log("WebEvent: anchor exist.");
 
     /* init black cover */
-    anchorLayout.style.background = 'black';
+    anchorLayout.style.backgroundColor = '#000';
 
     window.tvgPlayer = new TVGPlayerCover(anchorLayout);
     QYQD.webEvent(JSON.stringify({event:"tvgPlayerInit"}));
