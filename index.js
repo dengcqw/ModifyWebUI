@@ -6,8 +6,10 @@ var tvgHTMLURLError = require('./html/tvgURLError.html');
 var refreshImgData = require('./html/img/refresh.png');
 var casticonData = require('./html/img/casticon.png');
 
+var utils = require('./utils.js');
 var siteMgr = require('./site.manager.js');
-var siteId = siteMgr.getIdentifier(location.host);
+
+var thisSiteId = require('./site.id.js').getIdentifier(location.host);
 
 // outapp icon
 var outappIcon = {
@@ -110,7 +112,7 @@ function TVGPlayerCover(coverRef) {
   /* insert base64 img */
   updateRefreshIcon(documentRef, refreshImgData);
   startCastingAnimation(statusView);
-  var zIndex = siteMgr.getzIndexValue(siteId);
+  var zIndex = siteMgr.getzIndexValue(thisSiteId);
   castView.style.zIndex = zIndex;
   errView.style.zIndex = zIndex;
   statusView.style.zIndex = zIndex;
@@ -199,27 +201,6 @@ function TVGPlayerCover(coverRef) {
   }
 }
 
-function waitElement(interval, queryFn, callback) {
-  if (queryFn == undefined || callback == undefined) return;
-  if (!queryFn instanceof Function) return;
-  var timeoutFn = function() {
-    var ele = queryFn();
-    if (ele && ele instanceof Element) {
-      callback(ele);
-    } else {
-      setTimeout(timeoutFn, interval);
-    };
-  };
-  timeoutFn();
-};
-
-function pipeline(/* funs */) { /* 柯里化的管道 */
-  var args = Array.prototype.slice.call(arguments); // turn to array obj
-  return function(seed) {
-    return args.reduce(function(l, r) { return r(l); }, seed);
-  }
-}
-
 var checkOrigButtontTimer;
 
 function main() {
@@ -232,7 +213,7 @@ function main() {
     }
     return;
   }
-  var anchorLayout = siteMgr.queryMap[siteId]();
+  var anchorLayout = siteMgr.queryMap[thisSiteId]();
   if (!anchorLayout || anchorLayout.length <= 0) {
     console.log("WebEvent: anchor do not exist.");
     return;
@@ -263,22 +244,6 @@ if (!window.tvgPlayer) {
   checkOrigButtontTimer = setInterval(main.bind(this), 200);
 }
 
-
 /* execption process */
+siteMgr.patchesMap[thisSiteId].map(patchFn=>patchFn());
 
-/* bilibili: replace open clicent button to disable refresh page */
-waitElement(1000,
-  function() {
-    return document.querySelector('a.launch-app');
-  },
-  function(element) { /*  修改元素 */
-    if (element instanceof Element && element.tagName.toLowerCase() == 'a') {
-      console.log('bilibili: change launch app element');
-      var spanEle = document.createElement('span');
-      spanEle.className = element.className;
-      spanEle.innerHTML = element.innerHTML;
-      element.parentNode.replaceChild(spanEle, element);
-    }
-    return spanEle;
-  }
-);
