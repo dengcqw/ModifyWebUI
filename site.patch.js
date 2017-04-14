@@ -38,7 +38,7 @@ patches[siteIds.acfun] = [
   },
   ()=>{ /* 打开客户端，分享收藏缓存 tool bar */
     utils.waitElement(1000,
-      ()=>document.querySelector('block-toolbar'),
+      ()=>document.querySelector('.block-toolbar'),
       utils.cloneAndReplaceElement
     );
   },
@@ -71,13 +71,13 @@ patches[siteIds.mgtv] = [
 patches[siteIds.iqiyi] = [
   ()=> {
     utils.waitElement(1000,
-      ()=>document.getElementById('bottomNativePopup'),
+      ()=>document.getElementById('bottomNativePopup'), /* 立即下载 float bar*/
       (element)=>{element.style.opacity = '0';}
     );
   },
   ()=> {
     utils.waitElement(1000,
-      ()=>utils.flatten(
+      ()=>utils.flatten( /* 同样操作的元素可以拼成数组 */
         document.getElementsByClassName('m-video-action'), /* 分享等 */
         document.getElementsByClassName('m-link'), /* 底部意见反馈 */
         document.getElementsByClassName('link-app'), /* 右上角下载app */

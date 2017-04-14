@@ -54,7 +54,7 @@ function pipeline(/* funs */) { /* 柯里化的管道 */
 }
 
 function cloneAElement(aElement) {
-  var spanEle = document.createElement('span');
+  var spanEle = document.createElement('a');
   spanEle.className = aElement.className;
   spanEle.id = aElement.id;
   spanEle.innerHTML = aElement.innerHTML;
