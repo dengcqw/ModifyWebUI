@@ -35,10 +35,12 @@ function waitElement(interval, queryFn, callback) {
   if (!queryFn instanceof Function) return;
   var timeoutFn = function() {
     var ele = queryFn();
-    if (ele && ele instanceof Element) {
-      callback(ele);
-    } else {
+    if (!ele) {
       setTimeout(timeoutFn, interval);
+    } else if (ele instanceof Element) {
+      callback(ele);
+    } else if (ele instanceof Array) {
+      ele.map((element)=>callback(element));
     };
   };
   timeoutFn();

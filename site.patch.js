@@ -41,12 +41,32 @@ patches[siteIds.acfun] = [
       utils.cloneAndReplaceElement
     );
   },
-  ()=> {
+  ()=> { /* 底部下载app按键 */
     utils.waitElement(1000,
       ()=>document.getElementById('bottom-download'),
       utils.cloneAndReplaceElement
     );
   }
 ];
+
+patches[siteIds.mgtv] = [
+  ()=> {
+    utils.waitElement(1000,
+      ()=>{
+        var parentEle = document.querySelector('.v5-area-bar');
+        if (!parentEle) {
+          return undefined;
+        }
+        var array = [];
+        var ele = parentEle.querySelector('.bd.list'); /* 分享 bar */
+        if (ele) array.push(ele);
+        ele = document.getElementsByClassName('mg-stat'), /* 下载app 元素 */
+        if (ele && ele.length) array.concat(ele);
+        return array;
+      },
+      utils.cloneAndReplaceElement
+    );
+  }
+]
 
 module.exports = patches;
