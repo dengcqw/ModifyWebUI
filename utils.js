@@ -51,15 +51,15 @@ function pipeline(/* funs */) { /* 柯里化的管道 */
   }
 }
 
-function replaceAElement(parentEle) {
-  function cloneAElement(aElement) {
-    var spanEle = document.createElement('span');
-    spanEle.className = aElement.className;
-    spanEle.id = aElement.id;
-    spanEle.innerHTML = aElement.innerHTML;
-    return spanEle;
-  }
+function cloneAElement(aElement) {
+  var spanEle = document.createElement('span');
+  spanEle.className = aElement.className;
+  spanEle.id = aElement.id;
+  spanEle.innerHTML = aElement.innerHTML;
+  return spanEle;
+}
 
+function replaceAElement(parentEle) {
   var subAElements = parentEle.querySelectorAll('a');
   for (var i = 0; i < subAElements.length; i++) {
     (function(element) {
@@ -69,8 +69,15 @@ function replaceAElement(parentEle) {
   return parentEle;
 }
 
-function cloneAndReplace(element) {
-  var cloneEle = element.cloneNode(true);
+/* 拷贝元素，移除事件 */
+function cloneAndReplaceElement(element) {
+  var cloneEle;
+  if (element.tagName.toLowerCase() == 'a') {
+    cloneEle = cloneAElement(element);
+  } else {
+    cloneEle = element.cloneNode(true);
+  }
+
   element.parentNode.replaceChild(cloneEle, element);
   replaceAElement(cloneEle);
   return cloneEle;
@@ -81,6 +88,6 @@ module.exports = {
   getValidElement,
   waitElement,
   pipeline,
-  cloneAndReplace,
+  cloneAndReplaceElement,
 }
 
