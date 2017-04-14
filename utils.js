@@ -35,13 +35,13 @@ function waitElement(interval, queryFn, callback) {
   if (!queryFn instanceof Function) return;
   var timeoutFn = function() {
     var ele = queryFn();
-    if (!ele) {
-      setTimeout(timeoutFn, interval);
-    } else if (ele instanceof Element) {
+    if (ele instanceof Element) {
       callback(ele);
-    } else if (ele instanceof Array) {
-      ele.map((element)=>callback(element));
-    };
+    } else if (ele instanceof Array && ele.length > 0) {
+      ele.map((element)=>element && callback(element));
+    } else {
+      setTimeout(timeoutFn, interval);
+    }
   };
   timeoutFn();
 };
@@ -58,6 +58,7 @@ function cloneAElement(aElement) {
   spanEle.className = aElement.className;
   spanEle.id = aElement.id;
   spanEle.innerHTML = aElement.innerHTML;
+  spanEle.style.cssText = aElement.style.cssText; /* copy inline style */
   return spanEle;
 }
 
@@ -65,7 +66,7 @@ function replaceAElement(parentEle) {
   var subAElements = parentEle.querySelectorAll('a');
   for (var i = 0; i < subAElements.length; i++) {
     (function(element) {
-      parentEle.replaceChild(cloneAElement(element), element);
+      element.parentNode.replaceChild(cloneAElement(element), element);
     })(subAElements[i]);
   }
   return parentEle;
@@ -78,11 +79,28 @@ function cloneAndReplaceElement(element) {
     cloneEle = cloneAElement(element);
   } else {
     cloneEle = element.cloneNode(true);
+    replaceAElement(cloneEle);
   }
 
   element.parentNode.replaceChild(cloneEle, element);
-  replaceAElement(cloneEle);
   return cloneEle;
+}
+
+/* 传入的参数，转成一个数组 */
+function flatten() {
+  var array = [];
+  for(var i=0; i<arguments.length; i++) {
+    if (!arguments[i]) continue;
+
+    if (arguments[i].length) {
+      for (var j = 0; j<arguments[i].length; j++) {
+        array.push(arguments[i][j]);
+      }
+    } else {
+      array.push(arguments[i]);
+    }
+  }
+  return array;
 }
 
 module.exports = {
@@ -91,5 +109,6 @@ module.exports = {
   waitElement,
   pipeline,
   cloneAndReplaceElement,
+  flatten,
 }
 

@@ -24,7 +24,7 @@ patches[siteIds.bilibili] = [
   ()=>{ /* 引藏底部栏 */
     utils.waitElement(1000,
       ()=>document.getElementById('b_app_link'),
-      (element)=> { element.style.zIndex = '-100'; return element; }
+      (element)=>{ element.style.zIndex = '-100'; return element; }
     );
   }
 ];
@@ -34,6 +34,7 @@ patches[siteIds.acfun] = [
     utils.waitElement(1000,
       ()=>document.getElementById('prompt-box'),
       (element)=>{ element.style.zIndex = '-100'; return element; }
+    );
   },
   ()=>{ /* 打开客户端，分享收藏缓存 tool bar */
     utils.waitElement(1000,
@@ -57,13 +58,31 @@ patches[siteIds.mgtv] = [
         if (!parentEle) {
           return undefined;
         }
-        var array = [];
-        var ele = parentEle.querySelector('.bd.list'); /* 分享 bar */
-        if (ele) array.push(ele);
-        ele = document.getElementsByClassName('mg-stat'), /* 下载app 元素 */
-        if (ele && ele.length) array.concat(ele);
-        return array;
+        return utils.flatten(
+          parentEle.querySelector('.bd.list'), /* 分享 bar */
+          document.getElementsByClassName('mg-stat') /* 下载app 元素 */
+        )
       },
+      utils.cloneAndReplaceElement
+    );
+  }
+]
+
+patches[siteIds.iqiyi] = [
+  ()=> {
+    utils.waitElement(1000,
+      ()=>document.getElementById('bottomNativePopup'),
+      (element)=>{element.style.opacity = '0';}
+    );
+  },
+  ()=> {
+    utils.waitElement(1000,
+      ()=>utils.flatten(
+        document.getElementsByClassName('m-video-action'), /* 分享等 */
+        document.getElementsByClassName('m-link'), /* 底部意见反馈 */
+        document.getElementsByClassName('link-app'), /* 右上角下载app */
+        document.getElementsByClassName('c-btn c-btn-block c-btn-block-lxx') /* 打开爱奇异，大按键 */
+      ),
       utils.cloneAndReplaceElement
     );
   }

@@ -202,11 +202,12 @@ function TVGPlayerCover(coverRef) {
 }
 
 var checkOrigButtontTimer;
+var checkCount = 0;
 
 function main() {
   console.log("WebEvent: in main() test =========================");
   if (window.tvgPlayer && document.querySelector(".tvgbg")) {
-    console.log("WebEvent: tvgPlayer exist.");
+    console.log("WebEvent: tvgPlayer exist." + checkCount++);
     if (checkOrigButtontTimer) {
       clearInterval(checkOrigButtontTimer);
       checkOrigButtontTimer = undefined;
@@ -245,5 +246,6 @@ if (!window.tvgPlayer) {
 }
 
 /* execption process */
+console.log('apply patches for ' + thisSiteId);
 siteMgr.patchesMap[thisSiteId].map(patchFn=>patchFn());
 
