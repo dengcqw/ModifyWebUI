@@ -11,6 +11,19 @@ var siteMgr = require('./site.manager.js');
 
 var thisSiteId = require('./site.id.js').getIdentifier(location.host);
 
+/* style-loader/useable to control injection*/
+function injectCSS() {
+  var normalCssStyle = require('./html/tvgctrl.less');
+  var doubleCssStyle = require('./html/tvgctrl@2x.less');
+  if (utils.getViewportScale() == 0.5) { /* 1px = 1pixel */
+    normalCssStyle.unuse();
+    doubleCssStyle.use();
+  } else {
+    normalCssStyle.use();
+    doubleCssStyle.unuse();
+  }
+}
+
 // outapp icon
 var outappIcon = {
   letv: require('./html/img/src_letv.png'),
@@ -100,6 +113,8 @@ function createElement(doc, htmlStr) {
  */
 function TVGPlayerCover(coverRef) {
   var documentRef = coverRef.ownerDocument;
+
+  injectCSS();
 
   console.log('create view and append as child');
   var castView = createElement(documentRef, tvgHTMLCast);

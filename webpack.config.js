@@ -10,10 +10,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.(css|less)$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: 'style-loader/useable',
           },
           {
             loader: 'css-loader',
@@ -22,6 +22,9 @@ module.exports = {
               minimize: true
             }
           },
+          {
+            loader: 'less-loader'
+          }
         ]
       },
       {

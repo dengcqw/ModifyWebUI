@@ -1,4 +1,10 @@
 
+/*
+ * 通过js修改下面值
+ * @one-px: 2px;
+ * */
+@one-px: 2px;
+
 div.tvgbg {
   display:block;
   position:absolute;
@@ -28,7 +34,7 @@ div.tvgbg {
 
 #casttv #devicename {
   position:relative;
-  font-size: 14px;
+  font-size:@one-px * 14;
   top: 20%;
   color: white;
 }
@@ -36,7 +42,7 @@ div.tvgbg {
 #casting, #playing, #playerr, #casterr {
   position:relative;
   top: 30%;
-  font-size: 13px;
+  font-size: @one-px * 13;
 }
 
 .tvgcenter {
@@ -59,34 +65,34 @@ div.tvgbg {
 .tvgbg .tvgRefresh {
   display:inline-block;
   vertical-align:middle;
-  margin-left:2px;
-  height:13px;
-  width:13px;
+  margin-left:@one-px * 2;
+  height:@one-px * 13;
+  width:@one-px * 13;
 }
 
 div.tvgbg .tvggreentxt {
   color: #4dc769;
-  font-size: 13px;
+  font-size: @one-px * 13;
 }
 
 div.tvgbg .tvglighttxt {
   color: #999;
-  font-size: 14px;
+  font-size: @one-px * 14;
 }
 
 div.tvgbg #switch-btn {
   display:block;
   position:relative;
   background-color: #26282b;
-  width:100px;
-  height:30px;
-  border-radius: 15px;
+  width:31%;
+  height:@one-px * 30;
+  border-radius: @one-px * 15;
   left:50%;
   transform:translateX(0%);
-  top: 40px;
-  font-size:14px;
-  margin-left:-50px;
-  line-height: 30px;
+  top: @one-px * 40;
+  font-size: @one-px * 14;
+  margin-left:@one-px * -50;
+  line-height: @one-px * 30;
   color: #FFF;
 }
 
@@ -96,7 +102,7 @@ div.tvgbg #switch-btn {
   color: white;
   margin:0 auto;
   text-align: center;
-  font-size: 25px;
+  font-size: @one-px * 25;
 }
 
 /* cast view */
@@ -110,23 +116,23 @@ div.tvgbg>#tvgjumpToApp {
   position:absolute;
   background-color:#26282B;
   color:white;
-  width:133px;
+  width:41%;
   right:0;
-  font-size:11px;
-  top:20px;
-  border-top-left-radius:11px;
-  border-bottom-left-radius:11px;
+  font-size:@one-px * 11;
+  top: @one-px * 20;
+  border-top-left-radius: @one-px * 11;
+  border-bottom-left-radius:@one-px * 11;
   text-align:right;
-  padding-right:10px;
-  line-height:22px;
-  height:22px;
+  padding-right:@one-px * 10;
+  line-height:@one-px * 22;
+  height:@one-px * 22;
 }
 
 #tvgjumpToApp img {
   display:inline-block;
-  height:14px;
-  width:14px;
+  height:@one-px * 14;
+  width:@one-px * 14;
   vertical-align:middle;
-  margin:0 5px;
+  margin:0 @one-px*5;
 }
 
