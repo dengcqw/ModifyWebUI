@@ -15,12 +15,19 @@ var thisSiteId = require('./site.id.js').getIdentifier(location.host);
 function injectCSS() {
   var normalCssStyle = require('./html/tvgctrl.less');
   var doubleCssStyle = require('./html/tvgctrl@2x.less');
-  if (utils.getViewportScale() == 0.5) { /* 1px = 1pixel */
+  var threeCssStyle = require('./html/tvgctrl@3x.less');
+  if (utils.getViewportScale() == 2) { /* 1px = 1pixel */
     normalCssStyle.unuse();
     doubleCssStyle.use();
+    threeCssStyle.unuse();
+  } else if (utils.getViewportScale() == 3) {
+    normalCssStyle.unuse();
+    doubleCssStyle.unuse();
+    threeCssStyle.use();
   } else {
     normalCssStyle.use();
     doubleCssStyle.unuse();
+    threeCssStyle.unuse();
   }
 }
 
