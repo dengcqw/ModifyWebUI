@@ -9,9 +9,9 @@ var getViewportScale = (function () {
     var viewport = document.querySelector('meta[name="viewport"]');
     scale = 1;
     if (viewport && viewport.content) {
-      if (viewport.content.includes('initial-scale=0.5')) {
+      if (viewport.content.search('initial-scale=0.5') >= 0) {
         scale = 2;
-      } else if (viewport.content.includes('initial-scale=0.3')) {
+      } else if (viewport.content.search('initial-scale=0.3') >= 0) {
         scale = 3
       }
     }
