@@ -32,7 +32,7 @@ var queryMap = (function () {
     return document.getElementsByClassName('video-area')[0];
   };
   queryMap[siteIds.sohu] =     function() {
-    return document.getElementsByClassName('x-cover-playbtn-wrap')[0];
+    return document.getElementsByClassName('player-view')[0];
   };
   queryMap[siteIds.letv] =     function() {
     return document.getElementsByClassName('hv_box_mb')[0];

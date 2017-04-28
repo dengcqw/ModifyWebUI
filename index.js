@@ -267,7 +267,27 @@ if (!window.tvgPlayer) {
   checkOrigButtontTimer = setInterval(main.bind(this), 200);
 }
 
+/* stop auto play */
+if (!window.tvg_stopPlayTimer) {
+  var video = document.querySelector('video');
+  window.tvg_stopPlayTimer = setInterval(function() {
+    console.log("----> msg: ", video);
+    if (video && video.isplaying) {
+      video.pause();
+      if (video.webkitExitFullscreen) {
+        video.webkitExitFullscreen();
+      }
+    }
+  }, 200);
+}
+
 /* execption process */
 console.log('apply patches for ' + thisSiteId);
-siteMgr.patchesMap[thisSiteId].map(patchFn=>patchFn());
+try {
+  siteMgr.patchesMap[thisSiteId].map(patchFn=>patchFn());
+} catch(err) {
+  QYQD.log(err);
+}
+
+
 
