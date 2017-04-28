@@ -7,6 +7,15 @@ var patchesMap = require('./site.patch.js');
 var queryMap = (function () {
   var queryMap = {};
   queryMap[siteIds.iqiyi] =    function() {
+	  return getValidElement(
+		function() {
+			var ele = document.getElementsByClassName('m-video-player')[0];
+			if (ele) return ele;
+		},
+		function() {
+			return document.getElementsByClassName('m-live-video-player')[0];
+		},
+	  );
     return document.getElementsByClassName('m-video-player')[0];
   };
   queryMap[siteIds.acfun] =    function() {
