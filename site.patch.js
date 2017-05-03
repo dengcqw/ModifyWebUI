@@ -60,7 +60,9 @@ patches[siteIds.mgtv] = [
         }
         return utils.flatten(
           parentEle.querySelector('.bd>.list'), /* 分享 bar */
-          document.getElementsByClassName('mg-stat') /* 下载app 元素 */
+          document.getElementsByClassName('mg-appopen-btnopen mg-stat'), /* 下载app 元素 */
+		  document.getElementsByClassName('btn mg-stat'),/* 下载app 元素 */
+		  document.getElementsByClassName('video-comment')   /* 整个评论（包含跳app） */
         )
       },
       utils.cloneAndReplaceElement

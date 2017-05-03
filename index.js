@@ -271,8 +271,7 @@ if (!window.tvgPlayer) {
 if (!window.tvg_stopPlayTimer) {
   var video = document.querySelector('video');
   window.tvg_stopPlayTimer = setInterval(function() {
-    console.log("----> msg: ", video);
-    if (video && video.isplaying) {
+    if (video && video.paused == false) {
       video.pause();
       if (video.webkitExitFullscreen) {
         video.webkitExitFullscreen();
