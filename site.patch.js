@@ -65,7 +65,7 @@ patches[siteIds.mgtv] = [
 		  document.getElementsByClassName('video-comment')   /* 整个评论（包含跳app） */
         )
       },
-      utils.cloneAndReplaceElement
+      /*utils.cloneAndReplaceElement*/
     );
   }
 ]
