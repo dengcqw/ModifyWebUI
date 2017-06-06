@@ -101,8 +101,6 @@ function flatten() {
       array.push(arguments[i]);
     }
   }
-  console.log("mytest=============================================");
-  console.log(array);
   return array;
 }
 
