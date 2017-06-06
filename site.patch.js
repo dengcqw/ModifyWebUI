@@ -63,7 +63,7 @@ patches[siteIds.mgtv] = [
           document.getElementsByClassName('mg-stat') /* 下载app 元素 */
         )
       },
-      utils.cloneAndReplaceElement
+      /*utils.cloneAndReplaceElement*/
     );
   }
 ]
