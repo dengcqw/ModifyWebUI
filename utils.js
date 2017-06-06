@@ -80,7 +80,7 @@ function cloneAndReplaceElement(element) {
     cloneEle = cloneAElement(element);
   } else {
     cloneEle = element.cloneNode(true);
-    replaceAElement(cloneEle);
+    return replaceAElement(cloneEle);
   }
 
   element.parentNode.replaceChild(cloneEle, element);
@@ -101,6 +101,8 @@ function flatten() {
       array.push(arguments[i]);
     }
   }
+  console.log("mytest=============================================");
+  console.log(array);
   return array;
 }
 
