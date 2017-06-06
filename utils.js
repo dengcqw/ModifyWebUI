@@ -80,7 +80,7 @@ function cloneAndReplaceElement(element) {
     cloneEle = cloneAElement(element);
   } else {
     cloneEle = element.cloneNode(true);
-    return replaceAElement(cloneEle);
+    replaceAElement(cloneEle);
   }
 
   element.parentNode.replaceChild(cloneEle, element);
