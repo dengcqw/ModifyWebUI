@@ -178,7 +178,7 @@ function TVGPlayerCover(coverRef) {
           if (status == undefined) throw new Error('switch to statusView, need init status');
           this.changeStatus(status, addtional);
         }
-        if (viewName == 'castView' && status) {
+        if (viewName == 'castView' && status && addtional) {
           changeCastViewStatus(status, addtional);
         }
 
@@ -241,6 +241,18 @@ function main() {
     console.log("WebEvent: anchor do not exist.");
     return;
   } else {
+	if(anchorLayout == document.querySelector('.index__player__src-videoPage-player-')) {
+		console.log("callback............++++++++++++++++");
+		var result = new Object();
+		result.vv = [];
+		result.adv = [];
+		result.code = 0;
+		var html5data = {};
+              html5data.cid = "cid";
+			  result.vv.push("http://www.baidu.com");
+              result.html5data = html5data;
+              QYQD.cb(JSON.stringify(result));
+	}
     clearInterval(checkOrigButtontTimer);
     checkOrigButtontTimer = undefined;
 
@@ -269,8 +281,18 @@ if (!window.tvgPlayer) {
 
 /* stop auto play */
 if (!window.tvg_stopPlayTimer) {
-  var video = document.querySelector('video');
+	var audioMuteCall = 0;
   window.tvg_stopPlayTimer = setInterval(function() {
+	  var video = document.querySelector('video');
+	  if(video == null) return;
+	  video.muted=true;
+	  video.removeAttribute('autoplay');
+	  audioMuteCall += 1;
+	  try {
+		  if(audioMuteCall < 5) QYQD.audioMuted();		  
+	  } catch(err) {
+		  console.log(err);
+	  }
     if (video && video.paused == false) {
       video.pause();
       if (video.webkitExitFullscreen) {
@@ -285,7 +307,7 @@ console.log('apply patches for ' + thisSiteId);
 try {
   siteMgr.patchesMap[thisSiteId].map(patchFn=>patchFn());
 } catch(err) {
-  QYQD.log(err);
+  console.log(err);
 }
 
 

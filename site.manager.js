@@ -25,7 +25,8 @@ var queryMap = (function () {
     return getValidElement(
       function() { return document.querySelector('.player-container'); },
       function() { return document.querySelector('.live-over'); },
-      function() { return document.querySelector('.player-ctnr'); }
+      function() { return document.querySelector('.player-ctnr'); },
+	  function() { return document.querySelector('.index__player__src-videoPage-player-');}
     );
   };
   queryMap[siteIds.mgtv] =     function() {
