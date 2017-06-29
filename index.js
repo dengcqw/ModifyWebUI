@@ -58,6 +58,7 @@ function initCastView(castView) {
     throw new Error('jump to app element not exist');
     return;
   }
+  jumpEle.style.display="none";
 
   jumpEle.addEventListener('click', clickCallBack('jumpToApp'));
 }
