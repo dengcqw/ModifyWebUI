@@ -219,7 +219,7 @@ function TVGPlayerCover(coverRef) {
       }
     },
     hideSwitchBtn: function(hidden/*YES or NO stringValue*/) {
-      this.statusView.querySelector('#switch-btn').style.display = hidden == 'YES'?'none':'block';
+      this.statusView.querySelector('#switch-btn').style.display = hidden == 'YES'?'none':'none';
     }
   }
 }
